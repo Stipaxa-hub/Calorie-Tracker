@@ -1,4 +1,9 @@
 package com.calorietracker.common.exception;
 
-public class ForbiddenException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+
+public class ForbiddenException extends CalorieTrackerException {
+    public ForbiddenException(String message) {
+        super(message, HttpStatus.FORBIDDEN, "FORBIDDEN");
+    }
 }
