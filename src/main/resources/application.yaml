@@ -1,3 +1,30 @@
 spring:
   application:
-    name: Calorie Tracker
+    name: calorie-tracker-api
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/calorietracker
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:your-256-bit-secret-change-in-production}
+    access-token-expiry: 900000      # 15 minutes in ms
+    refresh-token-expiry: 604800000  # 7 days in ms
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:3000}
