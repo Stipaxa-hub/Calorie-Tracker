@@ -23,7 +23,7 @@ server:
 
 app:
   jwt:
-    secret: ${JWT_SECRET:your-256-bit-secret-change-in-production}
+    secret: ${JWT_SECRET:7bSr9fwnOCWwfvNdupORywOiMV46yzWUu3vENgqBdJZ}
     access-token-expiry: 900000      # 15 minutes in ms
     refresh-token-expiry: 604800000  # 7 days in ms
   cors:

@@ -1,15 +1,21 @@
 package com.calorietracker.modules.auth.controller;
 
 import com.calorietracker.common.response.ApiResponse;
+import com.calorietracker.modules.auth.domain.User;
 import com.calorietracker.modules.auth.dto.AuthResponseDto;
 import com.calorietracker.modules.auth.dto.UserLoginRequestDto;
 import com.calorietracker.modules.auth.dto.UserRegisterRequestDto;
+import com.calorietracker.modules.auth.dto.UserSummaryDto;
+import com.calorietracker.modules.auth.mapper.UserMapper;
 import com.calorietracker.modules.auth.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
+    private final UserMapper userMapper;
 
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<AuthResponseDto>> register(
@@ -38,10 +45,12 @@ public class AuthController {
     public ResponseEntity<ApiResponse<AuthResponseDto>> login(
             @Valid @RequestBody UserLoginRequestDto loginRequestDto,
             HttpServletRequest httpServletRequest
-            ) {
+    ) {
         AuthResponseDto authResponse = authService.login(loginRequestDto);
         return ResponseEntity.ok(ApiResponse.success(authResponse,
                 "Login successful",
                 httpServletRequest.getRequestURI()));
     }
+
+
 }
