@@ -10,6 +10,7 @@ import com.calorietracker.modules.auth.dto.AuthResponseDto;
 import com.calorietracker.modules.auth.dto.UserLoginRequestDto;
 import com.calorietracker.modules.auth.dto.UserRegisterRequestDto;
 import com.calorietracker.modules.auth.mapper.UserMapper;
+import com.calorietracker.modules.auth.repository.UserProfileRepository;
 import com.calorietracker.modules.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
+    private final UserProfileService userProfileService;
 
     public AuthResponseDto register(UserRegisterRequestDto registerRequestDto) {
         if (userRepository.existsByEmail(registerRequestDto.email())) {
@@ -41,6 +43,8 @@ public class AuthService {
         user.setSubscriptionTier(SubscriptionTier.FREE);
 
         userRepository.save(user);
+
+        userProfileService.createEmptyProfile(user);
 
         log.info("New user registered: {}", user.getEmail());
 

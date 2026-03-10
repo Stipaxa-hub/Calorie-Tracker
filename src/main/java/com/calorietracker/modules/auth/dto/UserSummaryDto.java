@@ -11,4 +11,5 @@ public class UserSummaryDto {
     private String email;
     private String role;
     private String subscriptionTier;
+    private Boolean profileComplete;
 }

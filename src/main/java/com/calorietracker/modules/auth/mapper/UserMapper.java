@@ -1,7 +1,5 @@
 package com.calorietracker.modules.auth.mapper;
 
-import com.calorietracker.modules.auth.domain.Role;
-import com.calorietracker.modules.auth.domain.SubscriptionTier;
 import com.calorietracker.modules.auth.domain.User;
 import com.calorietracker.modules.auth.dto.UserRegisterRequestDto;
 import com.calorietracker.modules.auth.dto.UserSummaryDto;
@@ -14,9 +12,10 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface UserMapper {
     @Mapping(source = "role", target = "role",
-            qualifiedByName = "roleToString")
+            qualifiedByName = "enumToString")
     @Mapping(source = "subscriptionTier", target = "subscriptionTier",
-            qualifiedByName = "tierToString")
+            qualifiedByName = "enumToString")
+    @Mapping(target = "profileComplete", ignore = true)
     UserSummaryDto toUserSummaryDto(User user);
 
     @Mapping(target = "id", ignore = true)
@@ -28,13 +27,8 @@ public interface UserMapper {
     @Mapping(target = "password", ignore = true)
     User toUser(UserRegisterRequestDto userRegisterRequestDto);
 
-    @Named("roleToString")
-    default String roleToString(Role role) {
-        return role != null ? role.name() : null;
-    }
-
-    @Named("tierToString")
-    default String tierToString(SubscriptionTier tier) {
-        return tier != null ? tier.name() : null;
+    @Named("enumToString")
+    default String enumToString(Enum<?> value) {
+        return value != null ? value.name() : null;
     }
 }
