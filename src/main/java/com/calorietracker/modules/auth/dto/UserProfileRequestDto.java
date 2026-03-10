@@ -20,7 +20,7 @@ public record UserProfileRequestDto(
         @NotNull(message = "Weigh is required")
         @DecimalMin(value = "20.0", message = "Weight must be at least 20kg")
         @DecimalMax(value = "500", message = "Weight must  be under 500kg")
-        Double weighKg,
+        Double weightKg,
         @NotNull(message = "Gender is required")
         Gender gender,
         @NotNull(message = "Activity level is required")

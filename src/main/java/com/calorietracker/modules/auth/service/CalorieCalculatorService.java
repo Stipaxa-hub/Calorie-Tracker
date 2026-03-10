@@ -32,7 +32,7 @@ public class CalorieCalculatorService {
         double base = (10 * weight) + (6.25 * height) - (5 * age);
 
         return switch (gender) {
-            case MALE -> base * 5;
+            case MALE -> base + 5;
             case FEMALE -> base - 161;
             default -> base - 78;
         };

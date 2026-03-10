@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Tracker</title>
+    <meta name="description" content="Track your daily calorie & macro goals with a personalized profile.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ================= TOAST ================= -->
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav id="navbar" class="navbar hidden">
+        <div class="navbar-inner">
+            <span class="brand">🔥 Calorie Tracker</span>
+            <div class="nav-right">
+                <span id="nav-user" class="nav-user"></span>
+                <button id="btn-logout" class="btn btn-ghost">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= LOGIN ================= -->
+    <section id="login-view" class="view">
+        <div class="auth-container">
+            <div class="auth-card glass">
+                <div class="auth-header">
+                    <h1>🔥</h1>
+                    <h2>Welcome Back</h2>
+                    <p class="subtitle">Sign in to your Calorie Tracker account</p>
+                </div>
+                <form id="login-form" novalidate>
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input id="login-email" type="email" placeholder="you@example.com" required>
+                        <span class="field-error" id="login-email-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input id="login-password" type="password" placeholder="••••••••" required>
+                        <span class="field-error" id="login-password-error"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" id="login-submit">
+                        <span class="btn-text">Sign In</span>
+                        <span class="btn-loader hidden"></span>
+                    </button>
+                </form>
+                <p class="auth-footer">
+                    Don't have an account? <a href="#" id="goto-register">Create one</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= REGISTER ================= -->
+    <section id="register-view" class="view hidden">
+        <div class="auth-container">
+            <div class="auth-card glass">
+                <div class="auth-header">
+                    <h1>🔥</h1>
+                    <h2>Create Account</h2>
+                    <p class="subtitle">Start tracking your nutrition today</p>
+                </div>
+                <form id="register-form" novalidate>
+                    <div class="form-group">
+                        <label for="reg-name">Full Name</label>
+                        <input id="reg-name" type="text" placeholder="John Doe" required minlength="2" maxlength="100">
+                        <span class="field-error" id="reg-name-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Email</label>
+                        <input id="reg-email" type="email" placeholder="you@example.com" required>
+                        <span class="field-error" id="reg-email-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Password</label>
+                        <input id="reg-password" type="password" placeholder="••••••••" required>
+                        <span class="field-error" id="reg-password-error"></span>
+                        <small class="hint">Min 8 chars · uppercase · lowercase · number · special char (!@#$%^&*_=+-)</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" id="register-submit">
+                        <span class="btn-text">Create Account</span>
+                        <span class="btn-loader hidden"></span>
+                    </button>
+                </form>
+                <p class="auth-footer">
+                    Already have an account? <a href="#" id="goto-login">Sign in</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= PROFILE SETUP ================= -->
+    <section id="setup-view" class="view hidden">
+        <div class="setup-container">
+            <div class="setup-card glass">
+                <div class="auth-header">
+                    <h2>Complete Your Profile</h2>
+                    <p class="subtitle">We'll calculate your personalized daily goals</p>
+                </div>
+                <form id="setup-form" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="setup-dob">Date of Birth</label>
+                            <input id="setup-dob" type="date" required>
+                            <span class="field-error" id="setup-dob-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="setup-gender">Gender</label>
+                            <select id="setup-gender" required>
+                                <option value="">Select…</option>
+                                <option value="MALE">Male</option>
+                                <option value="FEMALE">Female</option>
+                                <option value="OTHER">Other</option>
+                                <option value="PREFER_NOT_TO_SAY">Prefer not to say</option>
+                            </select>
+                            <span class="field-error" id="setup-gender-error"></span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="setup-height">Height (cm)</label>
+                            <input id="setup-height" type="number" min="50" max="300" step="0.1" placeholder="175" required>
+                            <span class="field-error" id="setup-height-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="setup-weight">Weight (kg)</label>
+                            <input id="setup-weight" type="number" min="20" max="500" step="0.1" placeholder="70" required>
+                            <span class="field-error" id="setup-weight-error"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="setup-activity">Activity Level</label>
+                        <select id="setup-activity" required>
+                            <option value="">Select…</option>
+                            <option value="SEDENTARY">Sedentary — little or no exercise</option>
+                            <option value="LIGHTLY_ACTIVE">Lightly Active — 1-3 days/week</option>
+                            <option value="MODERATELY_ACTIVE">Moderately Active — 3-5 days/week</option>
+                            <option value="VERY_ACTIVE">Very Active — 6-7 days/week</option>
+                            <option value="EXTRA_ACTIVE">Extra Active — hard exercise daily</option>
+                        </select>
+                        <span class="field-error" id="setup-activity-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="setup-goal">Goal</label>
+                        <select id="setup-goal" required>
+                            <option value="">Select…</option>
+                            <option value="LOSE_WEIGHT">Lose Weight</option>
+                            <option value="MAINTAIN_WEIGHT">Maintain Weight</option>
+                            <option value="GAIN_WEIGHT">Gain Weight</option>
+                            <option value="BUILD_MUSCLE">Build Muscle</option>
+                            <option value="IMPROVE_ENDURANCE">Improve Endurance</option>
+                        </select>
+                        <span class="field-error" id="setup-goal-error"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" id="setup-submit">
+                        <span class="btn-text">Save & Continue</span>
+                        <span class="btn-loader hidden"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= DASHBOARD ================= -->
+    <section id="dashboard-view" class="view hidden">
+        <div class="dashboard-container">
+            <header class="dash-header">
+                <h2>Your Daily Goals</h2>
+                <p class="subtitle" id="dash-greeting"></p>
+            </header>
+
+            <div class="macro-grid">
+                <div class="macro-card glass cal">
+                    <div class="macro-icon">🔥</div>
+                    <div class="macro-value" id="dash-calories">—</div>
+                    <div class="macro-label">Calories</div>
+                    <div class="macro-unit">kcal / day</div>
+                </div>
+                <div class="macro-card glass pro">
+                    <div class="macro-icon">🥩</div>
+                    <div class="macro-value" id="dash-protein">—</div>
+                    <div class="macro-label">Protein</div>
+                    <div class="macro-unit">g / day</div>
+                </div>
+                <div class="macro-card glass carb">
+                    <div class="macro-icon">🍞</div>
+                    <div class="macro-value" id="dash-carbs">—</div>
+                    <div class="macro-label">Carbs</div>
+                    <div class="macro-unit">g / day</div>
+                </div>
+                <div class="macro-card glass fat">
+                    <div class="macro-icon">🥑</div>
+                    <div class="macro-value" id="dash-fat">—</div>
+                    <div class="macro-label">Fat</div>
+                    <div class="macro-unit">g / day</div>
+                </div>
+            </div>
+
+            <div class="profile-detail glass">
+                <h3>Profile Details</h3>
+                <div class="detail-grid" id="detail-grid">
+                    <!-- filled by JS -->
+                </div>
+                <button id="btn-edit-profile" class="btn btn-outline">Edit Profile</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

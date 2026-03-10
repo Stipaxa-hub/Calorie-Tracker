@@ -10,7 +10,7 @@ public record UserProfileResponseDto(
         LocalDate dateOfBirth,
         Integer age,
         Double heighCm,
-        Double weighKg,
+        Double weightKg,
         String gender,
         String activityLevel,
         String goalType,
